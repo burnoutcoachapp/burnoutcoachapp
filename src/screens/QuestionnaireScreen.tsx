@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, makeStyles } from "@material-ui/core";
-import { Header, Introduction } from "../components";
+import { Header, Introduction, Form } from "../components";
 
 const useStyles = makeStyles({
   root: {
@@ -16,6 +16,7 @@ const QuestionnaireScreen: React.FC = () => {
     <Box className={classes.root}>
       <Header />
       <Introduction />
+      <Form />
     </Box>
   );
 };
