@@ -1,24 +1,24 @@
-import { Box, Container, Typography, makeStyles } from "@material-ui/core";
-import React from "react";
-import strings from "../strings";
-import Video from "./Video";
+import { Box, Container, Typography, makeStyles } from '@material-ui/core';
+import React from 'react';
+import strings from '../strings';
+import Video from './Video';
 
 const useStyles = makeStyles({
   introduction: {
     paddingTop: 40,
-    flexDirection: "column",
+    flexDirection: 'column',
   },
   title: {},
   videoSection: {
-    display: "flex",
+    display: 'flex',
     paddingTop: 40,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   propaganda: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
 });
 

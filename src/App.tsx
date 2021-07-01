@@ -1,5 +1,5 @@
-import React from "react";
-import QuestionnaireScreen from "./screens/QuestionnaireScreen";
+import React from 'react';
+import QuestionnaireScreen from './screens/QuestionnaireScreen';
 
 const App: React.FC = () => {
   return <QuestionnaireScreen />;

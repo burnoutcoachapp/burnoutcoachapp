@@ -1,11 +1,11 @@
-import React from "react";
-import { Box, makeStyles } from "@material-ui/core";
-import { Header, Introduction, Form } from "../components";
+import React from 'react';
+import { Box, makeStyles } from '@material-ui/core';
+import { Header, Introduction, Form } from '../components';
 
 const useStyles = makeStyles({
   root: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 

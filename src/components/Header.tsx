@@ -1,17 +1,17 @@
-import React from "react";
-import { Container, makeStyles } from "@material-ui/core";
-import emilyHeader from "../images/emily-header.png";
+import React from 'react';
+import { Container, makeStyles } from '@material-ui/core';
+import emilyHeader from '../images/emily-header.png';
 
 const useStyles = makeStyles({
   header: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   image: {
-    display: "block",
-    width: "100vw",
-    height: "auto",
+    display: 'block',
+    width: '100vw',
+    height: 'auto',
     maxHeight: 300,
     maxWidth: 1500,
   },

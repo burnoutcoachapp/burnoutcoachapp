@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Container,
   Typography,
@@ -10,21 +10,21 @@ import {
   Radio,
   Card,
   TextField,
-} from "@material-ui/core";
-import strings from "../strings";
+} from '@material-ui/core';
+import strings from '../strings';
 
 const useStyles = makeStyles({
   container: {
-    display: "flex",
+    display: 'flex',
     paddingTop: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
   card: {
     padding: 40,
     marginBottom: 20,
-    width: "70vw",
+    width: '70vw',
   },
 });
 
@@ -34,7 +34,7 @@ const Form = (): JSX.Element => {
   const classes = useStyles();
 
   const [loveRating, setLoveRating] = useState<number | undefined>(undefined);
-  const [email, setEmail] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
 
   const onChangeEmailText = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -44,8 +44,8 @@ const Form = (): JSX.Element => {
 
   const renderDebugText = (label: string, text?: string): JSX.Element => {
     return (
-      <Typography style={{ color: "red" }} align="center" variant="h6">
-        {`${label}${text === undefined ? "" : `: ${text}`}`}
+      <Typography style={{ color: 'red' }} align="center" variant="h6">
+        {`${label}${text === undefined ? '' : `: ${text}`}`}
       </Typography>
     );
   };
@@ -55,9 +55,9 @@ const Form = (): JSX.Element => {
       <Typography align="center" variant="h6">
         {strings.formTitle}
       </Typography>
-      {renderDebugText("Debug Stuff")}
-      {renderDebugText("Email", email || "undefined")}
-      {renderDebugText("Love Rating", (loveRating ?? "undefined").toString())}
+      {renderDebugText('Debug Stuff')}
+      {renderDebugText('Email', email || 'undefined')}
+      {renderDebugText('Love Rating', (loveRating ?? 'undefined').toString())}
       <Card className={classes.card}>
         <FormControl required component="fieldset">
           <FormLabel style={{ paddingBottom: 20 }} component="label">
