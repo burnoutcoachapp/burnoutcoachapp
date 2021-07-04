@@ -6,8 +6,9 @@ import {
 } from '@material-ui/core';
 import strings from '../strings';
 import EmailField from './EmailField';
-import LoveRatingQ from './LoveRatingQ';
 import NameField from './NameField';
+import FormFieldQuestion from './FormFieldQuestion';
+import RatingQuestion from './RatingQuestion';
 
 const useStyles = makeStyles({
   container: {
@@ -50,11 +51,10 @@ const Form = (): JSX.Element => {
       <NameField onNameChange={(name) => {
         setName(name);
       }} />
-      <LoveRatingQ onLoveRatingChange={(rating) => {
+      <RatingQuestion label="love" title={`${strings.love['emoji']} ${strings.love['title']}`} onRatingChange={(rating) => {
         setLoveRating(rating)
       }}
       />
-
     </Container>
   );
 };
