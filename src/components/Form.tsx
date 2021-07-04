@@ -7,6 +7,7 @@ import {
 import strings from '../strings';
 import EmailField from './EmailField';
 import LoveRatingQ from './LoveRatingQ';
+import NameField from './NameField';
 
 const useStyles = makeStyles({
   container: {
@@ -24,6 +25,7 @@ const Form = (): JSX.Element => {
 
   const [loveRating, setLoveRating] = useState<number | undefined>(undefined);
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
 
   const renderDebugText = (label: string, text?: string): JSX.Element => {
     return (
@@ -40,9 +42,13 @@ const Form = (): JSX.Element => {
       </Typography>
       {renderDebugText('Debug Stuff')}
       {renderDebugText('Email', email || 'undefined')}
+      {renderDebugText('Name', name || 'undefined'.toString())}
       {renderDebugText('Love Rating', (loveRating ?? 'undefined').toString())}
       <EmailField onEmailChange={(email) => {
         setEmail(email);
+      }} />
+      <NameField onNameChange={(name) => {
+        setName(name);
       }} />
       <LoveRatingQ onLoveRatingChange={(rating) => {
         setLoveRating(rating)

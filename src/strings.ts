@@ -7,7 +7,9 @@ const strings = {
     loveRomanceTitle: '❤️ Love & Romance',
     email: 'Email',
     emailPlaceholder: 'Your email',
-    emailReason: 'Enter your best email to send a copy of your results'
+    emailReason: 'Enter your best email to send a copy of your results',
+    name: 'Name',
+    namePlaceholder: 'Your name',
 }
 
 export default strings;
