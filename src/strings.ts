@@ -6,7 +6,8 @@ const strings = {
     formTitle: 'Fill out all the segments, and press Show my results at the end to create your Wheel of Balance',
     loveRomanceTitle: '❤️ Love & Romance',
     email: 'Email',
-    emailPlaceholder: 'Your email'
+    emailPlaceholder: 'Your email',
+    emailReason: 'Enter your best email to send a copy of your results'
 }
 
 export default strings;

@@ -12,6 +12,7 @@ import {
   TextField,
 } from '@material-ui/core';
 import strings from '../strings';
+import { isValidEmail } from '../utils';
 
 const useStyles = makeStyles({
   container: {
@@ -26,6 +27,9 @@ const useStyles = makeStyles({
     marginBottom: 20,
     width: '70vw',
   },
+  emailSubLabel: {
+    paddingBottom: 20,
+  },
 });
 
 const loveRatingValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -35,6 +39,7 @@ const Form = (): JSX.Element => {
 
   const [loveRating, setLoveRating] = useState<number | undefined>(undefined);
   const [email, setEmail] = useState<string>('');
+  const [emailError, setEmailError] = useState<boolean | undefined>(undefined);
 
   const onChangeEmailText = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -58,6 +63,25 @@ const Form = (): JSX.Element => {
       {renderDebugText('Debug Stuff')}
       {renderDebugText('Email', email || 'undefined')}
       {renderDebugText('Love Rating', (loveRating ?? 'undefined').toString())}
+      <Card className={classes.card}>
+        <FormControl required component="fieldset">
+          <FormLabel style={{ paddingBottom: 20 }} component="label">
+            {strings.email}
+          </FormLabel>
+          <Typography variant="body2" className={classes.emailSubLabel}>
+            {strings.emailReason}
+          </Typography>
+          <TextField
+            error={emailError ?? false}
+            placeholder={strings.emailPlaceholder}
+            value={email}
+            onChange={onChangeEmailText}
+            onBlur={() => {
+              setEmailError(!isValidEmail(email))
+            }}
+           />
+        </FormControl>
+      </Card>
       <Card className={classes.card}>
         <FormControl required component="fieldset">
           <FormLabel style={{ paddingBottom: 20 }} component="label">
@@ -85,18 +109,6 @@ const Form = (): JSX.Element => {
               );
             })}
           </RadioGroup>
-        </FormControl>
-      </Card>
-      <Card className={classes.card}>
-        <FormControl required component="fieldset">
-          <FormLabel style={{ paddingBottom: 20 }} component="label">
-            {strings.email}
-          </FormLabel>
-          <TextField
-            placeholder={strings.emailPlaceholder}
-            value={email}
-            onChange={onChangeEmailText}
-          ></TextField>
         </FormControl>
       </Card>
     </Container>
