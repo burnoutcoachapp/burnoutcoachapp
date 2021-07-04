@@ -15,10 +15,11 @@ type Props = {
     title: string;
     fieldPlaceholder?: string;
     onValueChange?: (value: string) => void;
+    required?: boolean;
 }
 
 const FormFieldQuestion: React.FC<Props> = (props) => {
-    const { title, fieldPlaceholder, onValueChange } = props;
+    const { title, fieldPlaceholder, required, onValueChange } = props;
 
     const classes = useStyles();
 
@@ -41,7 +42,7 @@ const FormFieldQuestion: React.FC<Props> = (props) => {
 
     return (
         <Card className={classes.card}>
-            <FormControl required component="fieldset">
+            <FormControl required={required} component="fieldset">
                 <FormLabel style={{ paddingBottom: 20 }} component="label">
                     {title}
                 </FormLabel>
@@ -62,4 +63,5 @@ FormFieldQuestion.propTypes = {
     title: PropTypes.string.isRequired,
     fieldPlaceholder: PropTypes.string,
     onValueChange: PropTypes.func,
+    required: PropTypes.bool,
 }

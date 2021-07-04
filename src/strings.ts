@@ -23,16 +23,20 @@ const strings = {
     family: {
         emoji:  '👨‍👩‍👦',
         title: 'Family',
-    }, nutrition: {
+    }, 
+    nutrition: {
         emoji:  '🥑',
         title: 'Nutrition',
-    }, health: {
+    }, 
+    health: {
         emoji:  '💪',
         title: 'Health & Fitness',
-    }, career: {
+    }, 
+    career: {
         emoji:  '🖥️',
         title: 'Career / Business',
-    }, growth: {
+    }, 
+    growth: {
         emoji:  '🧠',
         title: 'Personal Growth',
     },

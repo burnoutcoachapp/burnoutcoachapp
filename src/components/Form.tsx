@@ -7,8 +7,8 @@ import {
 import strings from '../strings';
 import EmailField from './EmailField';
 import NameField from './NameField';
-import FormFieldQuestion from './FormFieldQuestion';
-import RatingQuestion from './RatingQuestion';
+import QuestionGroup from './QuestionGroup';
+import { categories } from '../types';
 
 const useStyles = makeStyles({
   container: {
@@ -51,10 +51,11 @@ const Form = (): JSX.Element => {
       <NameField onNameChange={(name) => {
         setName(name);
       }} />
-      <RatingQuestion label="love" title={`${strings.love['emoji']} ${strings.love['title']}`} onRatingChange={(rating) => {
-        setLoveRating(rating)
-      }}
-      />
+      {categories.map((label) => {
+        return <QuestionGroup key={label} label={label} />
+      })}
+      {/* <QuestionGroup label="love" />
+      <QuestionGroup label="home" /> */}
     </Container>
   );
 };
