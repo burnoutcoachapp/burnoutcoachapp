@@ -9,9 +9,6 @@ const useStyles = makeStyles({
         marginBottom: 20,
         width: '70vw',
     },
-    nameSubLabel: {
-        paddingBottom: 20,
-    },
 });
 
 type Props = {
