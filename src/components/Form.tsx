@@ -4,9 +4,9 @@ import strings from '../strings';
 import EmailField from './EmailField';
 import NameField from './NameField';
 import QuestionGroup from './QuestionGroup';
-import { AnswerGroup, categories, QuestionCategory } from '../types';
-import { PolarArea } from 'react-chartjs-2';
+import { AnswerGroup, Answers, categories } from '../types';
 import Popup from './Popup';
+import { isValidEmail } from '../utils';
 const useStyles = makeStyles({
     container: {
         display: 'flex',
@@ -22,16 +22,14 @@ const useStyles = makeStyles({
     },
 });
 
-type Answers = Record<QuestionCategory, AnswerGroup>;
-
 const Form = (): JSX.Element => {
     const classes = useStyles();
-
-    const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [answers, setAnswers] = useState<Partial<Answers>>();
     const [showPopup, setShowPopup] = useState(false);
-    const [emailError, setEmailError] = useState(false);
+
+    const [email, setEmail] = useState<string>('');
+    const [emailError, setEmailError] = useState<boolean | undefined>(undefined);
 
     const onAnswerChange = (answer: AnswerGroup) => {
         setAnswers({
@@ -57,77 +55,30 @@ const Form = (): JSX.Element => {
         return answersWithRatings.length === categories.length;
     }, [answers, email, name]);
 
-    const renderChart = useCallback((): JSX.Element => {
-        console.log('are all answers answered: ' + areRequiredAnswersAnswered());
-        if (!areRequiredAnswersAnswered()) return <></>;
-        const answerValues = Object.values(answers ?? {});
-
-        const labels = answerValues.map((x) => {
-            return strings[x.label].title;
-        });
-
-        const data = {
-            labels,
-            datasets: [
-                {
-                    label: 'Rating',
-                    data: answerValues.map((x) => x.rating ?? 0),
-                    backgroundColor: [
-                        'rgba(255, 99, 164, 0.5)',
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(153, 102, 255, 0.5)',
-                        'rgba(255, 159, 64, 0.5)',
-                        'rgba(190, 99, 255, 0.5)',
-                        'rgba(99, 255, 146, 0.5)',
-                        'rgba(99, 216, 255, 0.5)',
-                        'rgba(255, 99, 99, 0.5)',
-                    ],
-                    borderWidth: 1,
-                },
-            ],
-        };
-
-        return (
-            <Box style={{ width: '50vw' }}>
-                <PolarArea
-                    type="polarArea"
-                    data={data}
-                    options={{
-                        scale: {
-                            min: 0,
-                            max: 10,
-                        },
-                    }}
-                />
-            </Box>
-        );
-    }, [areRequiredAnswersAnswered]);
-
     const onSubmitPressed = useCallback(() => {
         if (areRequiredAnswersAnswered()) {
-            // submit
-            console.log('All good');
         } else {
-            // show error
-            console.log('Not all good');
             setShowPopup(true);
         }
     }, [areRequiredAnswersAnswered]);
+
+    const validateEmail = (): void => {
+        setEmailError(!isValidEmail(email));
+    };
 
     return (
         <Container className={classes.container}>
             <Typography style={{ paddingBottom: 20 }} align="center" variant="h6">
                 {strings.formTitle}
             </Typography>
-            {renderChart()}
             <EmailField
-                setIsError={(err) => {
-                    setEmailError(err);
+                email={email}
+                setEmail={(e) => {
+                    setEmail(e);
                 }}
-                onEmailChange={(email) => {
-                    setEmail(email);
+                emailError={emailError}
+                onBlur={() => {
+                    validateEmail();
                 }}
             />
             <NameField

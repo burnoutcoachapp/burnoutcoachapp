@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, FormControl, FormLabel, makeStyles, TextField, Typography } from '@material-ui/core';
 import strings from '../strings';
 import { isValidEmail } from '../utils';
@@ -16,22 +16,19 @@ const useStyles = makeStyles({
 });
 
 type Props = {
-    onEmailChange?: (email: string) => void;
-    setIsError?: (error: boolean) => void;
+    email: string;
+    setEmail: (email: string) => void;
+    emailError?: boolean;
+    onBlur?: () => void;
 };
 
 const EmailField: React.FC<Props> = (props) => {
-    const { onEmailChange, setIsError } = props;
+    const { email, setEmail, emailError, onBlur } = props;
 
     const classes = useStyles();
 
-    const [email, setEmail] = useState<string>('');
-    const [emailError, setEmailError] = useState<boolean | undefined>(undefined);
     const onChangeEmailText = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setEmail(e.target.value);
-        if (onEmailChange) onEmailChange(e.target.value);
-        setEmailError(!isValidEmail(email));
-        if (setIsError) setIsError(!isValidEmail(email));
     };
 
     return (
@@ -48,9 +45,7 @@ const EmailField: React.FC<Props> = (props) => {
                     placeholder={strings.emailPlaceholder}
                     value={email}
                     onChange={onChangeEmailText}
-                    onBlur={() => {
-                        setEmailError(!isValidEmail(email));
-                    }}
+                    onBlur={onBlur}
                 />
             </FormControl>
         </Card>
@@ -60,6 +55,8 @@ const EmailField: React.FC<Props> = (props) => {
 export default EmailField;
 
 EmailField.propTypes = {
-    onEmailChange: PropTypes.func,
-    setIsError: PropTypes.func,
+    email: PropTypes.string.isRequired,
+    setEmail: PropTypes.func.isRequired,
+    emailError: PropTypes.bool,
+    onBlur: PropTypes.func,
 };
