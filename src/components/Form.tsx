@@ -20,9 +20,6 @@ const useStyles = makeStyles({
         marginTop: 20,
         marginBottom: 50,
     },
-    submitSection: {
-        width: '70vw',
-    },
 });
 
 type Answers = Record<QuestionCategory, AnswerGroup>;
@@ -143,7 +140,7 @@ const Form = (): JSX.Element => {
                     return <QuestionGroup onAnswerChange={onAnswerChange} key={label} label={label} />;
                 })}
             </form>
-            <Box className={classes.submitSection}>
+            <Box>
                 <Button onClick={onSubmitPressed} className={classes.submitButton} variant="contained" color="primary">
                     {strings.submit}
                 </Button>
