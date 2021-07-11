@@ -5,7 +5,8 @@ import EmailField from './EmailField';
 import NameField from './NameField';
 import QuestionGroup from './QuestionGroup';
 import { AnswerGroup, categories, QuestionCategory } from '../types';
-import { PolarArea, Chart } from 'react-chartjs-2';
+import { PolarArea } from 'react-chartjs-2';
+import Popup from './Popup';
 const useStyles = makeStyles({
     container: {
         display: 'flex',
@@ -32,14 +33,8 @@ const Form = (): JSX.Element => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [answers, setAnswers] = useState<Partial<Answers>>();
-    const [debugText, setDebugText] = useState<string>('');
-    const renderDebugText = (label: string, text?: string): JSX.Element => {
-        return (
-            <Typography style={{ color: 'red' }} align="center" variant="h6">
-                {`${label}${text === undefined ? '' : `: ${text}`}`}
-            </Typography>
-        );
-    };
+    const [showPopup, setShowPopup] = useState(false);
+    const [emailError, setEmailError] = useState(false);
 
     const onAnswerChange = (answer: AnswerGroup) => {
         setAnswers({
@@ -54,27 +49,26 @@ const Form = (): JSX.Element => {
         event.preventDefault();
     };
 
-    const areAllAnswersAnswered = useCallback((): boolean => {
+    // This is not a good way to check if the answers are required
+    const areRequiredAnswersAnswered = useCallback((): boolean => {
         if (answers === undefined) return false;
         // Check length of array with answers that have ratings
+        if (email === '' || name === '' || emailError === true) return false;
+
         const answerValues = Object.values(answers);
         const answersWithRatings = answerValues.filter((x) => x.rating !== undefined);
-        console.log('answersWithRatings length ' + answersWithRatings.length);
-        console.log('categories length ' + categories.length);
-
         return answersWithRatings.length === categories.length;
-    }, [answers]);
+    }, [answers, email, name]);
 
     const renderChart = useCallback((): JSX.Element => {
-        console.log('are all answers answered: ' + areAllAnswersAnswered());
-        if (!areAllAnswersAnswered()) return <></>;
+        console.log('are all answers answered: ' + areRequiredAnswersAnswered());
+        if (!areRequiredAnswersAnswered()) return <></>;
         const answerValues = Object.values(answers ?? {});
 
         const labels = answerValues.map((x) => {
             return strings[x.label].title;
         });
 
-        console.log(labels);
         const data = {
             labels,
             datasets: [
@@ -98,8 +92,6 @@ const Form = (): JSX.Element => {
             ],
         };
 
-        // let data;
-        // const datasets = Object.values(answers).map({});
         return (
             <Box style={{ width: '50vw' }}>
                 <PolarArea
@@ -114,20 +106,29 @@ const Form = (): JSX.Element => {
                 />
             </Box>
         );
-    }, [areAllAnswersAnswered]);
+    }, [areRequiredAnswersAnswered]);
+
+    const onSubmitPressed = useCallback(() => {
+        if (areRequiredAnswersAnswered()) {
+            // submit
+            console.log('All good');
+        } else {
+            // show error
+            console.log('Not all good');
+            setShowPopup(true);
+        }
+    }, [areRequiredAnswersAnswered]);
 
     return (
         <Container className={classes.container}>
-            <Typography align="center" variant="h6">
+            <Typography style={{ paddingBottom: 20 }} align="center" variant="h6">
                 {strings.formTitle}
             </Typography>
             {renderChart()}
-            {renderDebugText('Debug Stuff')}
-            {renderDebugText('Email', email || 'undefined')}
-            {renderDebugText('Name', name || 'undefined'.toString())}
-            {renderDebugText('Answers', JSON.stringify(answers ?? 'undefined', null, 4))}
-            {renderDebugText('Debug', debugText)}
             <EmailField
+                setIsError={(err) => {
+                    setEmailError(err);
+                }}
                 onEmailChange={(email) => {
                     setEmail(email);
                 }}
@@ -143,10 +144,19 @@ const Form = (): JSX.Element => {
                 })}
             </form>
             <Box className={classes.submitSection}>
-                <Button className={classes.submitButton} variant="contained" color="primary">
+                <Button onClick={onSubmitPressed} className={classes.submitButton} variant="contained" color="primary">
                     {strings.submit}
                 </Button>
             </Box>
+            {showPopup && (
+                <Popup
+                    onButtonPressed={() => {
+                        setShowPopup(false);
+                    }}
+                    text={strings.ratingRequired}
+                    buttonText={strings.confirm}
+                />
+            )}
         </Container>
     );
 };

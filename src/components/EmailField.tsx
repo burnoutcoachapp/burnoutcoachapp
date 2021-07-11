@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Card, FormControl, FormLabel, makeStyles, TextField, Typography } from '@material-ui/core';
 import strings from '../strings';
 import { isValidEmail } from '../utils';
@@ -17,21 +17,21 @@ const useStyles = makeStyles({
 
 type Props = {
     onEmailChange?: (email: string) => void;
-}
+    setIsError?: (error: boolean) => void;
+};
 
 const EmailField: React.FC<Props> = (props) => {
-    const { onEmailChange } = props;
+    const { onEmailChange, setIsError } = props;
 
     const classes = useStyles();
 
     const [email, setEmail] = useState<string>('');
     const [emailError, setEmailError] = useState<boolean | undefined>(undefined);
-    const onChangeEmailText = (
-        e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-    ) => {
+    const onChangeEmailText = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setEmail(e.target.value);
         if (onEmailChange) onEmailChange(e.target.value);
-        setEmailError(!isValidEmail(email))
+        setEmailError(!isValidEmail(email));
+        if (setIsError) setIsError(!isValidEmail(email));
     };
 
     return (
@@ -49,16 +49,17 @@ const EmailField: React.FC<Props> = (props) => {
                     value={email}
                     onChange={onChangeEmailText}
                     onBlur={() => {
-                        setEmailError(!isValidEmail(email))
+                        setEmailError(!isValidEmail(email));
                     }}
                 />
             </FormControl>
         </Card>
-    )
-}
+    );
+};
 
 export default EmailField;
 
 EmailField.propTypes = {
-    onEmailChange: PropTypes.func.isRequired
-}
+    onEmailChange: PropTypes.func,
+    setIsError: PropTypes.func,
+};

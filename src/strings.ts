@@ -56,6 +56,8 @@ const strings = {
     goingWell: 'What\'s going well?',
     improve: 'What would you like to improve?',
     level10: 'Describe what Level 10 looks like for you?',
+    ratingRequired: 'Please fill out all required questions',
+    confirm: 'Confirm'
 };
 
 export default strings;
