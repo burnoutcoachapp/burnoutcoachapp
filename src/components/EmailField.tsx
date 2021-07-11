@@ -27,6 +27,7 @@ const EmailField: React.FC<Props> = (props) => {
 
     const [email, setEmail] = useState<string>('');
     const [emailError, setEmailError] = useState<boolean | undefined>(undefined);
+
     const onChangeEmailText = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setEmail(e.target.value);
         if (onEmailChange) onEmailChange(e.target.value);
