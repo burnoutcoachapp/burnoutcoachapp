@@ -1,8 +1,20 @@
 import React from 'react';
-import QuestionnaireScreen from './screens/QuestionnaireScreen';
+import { QuestionnaireScreen, ResultsScreen } from './screens';
+import { Switch, Route } from 'react-router-dom';
 
 const App: React.FC = () => {
-    return <QuestionnaireScreen />;
+    return (
+        <div>
+            <Switch>
+                <Route path="/results">
+                    <ResultsScreen />
+                </Route>
+                <Route path="/">
+                    <QuestionnaireScreen />
+                </Route>
+            </Switch>
+        </div>
+    );
 };
 
 export default App;

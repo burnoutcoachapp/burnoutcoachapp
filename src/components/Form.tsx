@@ -6,6 +6,7 @@ import NameField from './NameField';
 import QuestionGroup from './QuestionGroup';
 import { AnswerGroup, Answers, categories } from '../types';
 import Popup from './Popup';
+import { useHistory } from 'react-router-dom';
 import { isValidEmail } from '../utils';
 const useStyles = makeStyles({
     container: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles({
 
 const Form = (): JSX.Element => {
     const classes = useStyles();
+    const history = useHistory();
     const [name, setName] = useState('');
     const [answers, setAnswers] = useState<Partial<Answers>>();
     const [showPopup, setShowPopup] = useState(false);
@@ -57,6 +59,8 @@ const Form = (): JSX.Element => {
 
     const onSubmitPressed = useCallback(() => {
         if (areRequiredAnswersAnswered()) {
+            // Submit
+            history.push('/results', { answers });
         } else {
             setShowPopup(true);
         }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, FormControl, FormLabel, makeStyles, TextField, Typography } from '@material-ui/core';
 import strings from '../strings';
-import { isValidEmail } from '../utils';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
