@@ -41,11 +41,6 @@ const Form = (): JSX.Element => {
         console.log(JSON.stringify(answers));
     };
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        console.log('submit');
-        event.preventDefault();
-    };
-
     // This is not a good way to check if the answers are required
     const areRequiredAnswersAnswered = useCallback((): boolean => {
         if (answers === undefined) return false;
@@ -55,7 +50,7 @@ const Form = (): JSX.Element => {
         const answerValues = Object.values(answers);
         const answersWithRatings = answerValues.filter((x) => x.rating !== undefined);
         return answersWithRatings.length === categories.length;
-    }, [answers, email, name]);
+    }, [answers, email, emailError, name]);
 
     const renderChart = useCallback((): JSX.Element => {
         console.log('are all answers answered: ' + areRequiredAnswersAnswered());
@@ -103,58 +98,64 @@ const Form = (): JSX.Element => {
                 />
             </Box>
         );
-    }, [areRequiredAnswersAnswered]);
+    }, [answers, areRequiredAnswersAnswered]);
 
-    const onSubmitPressed = useCallback(() => {
-        if (areRequiredAnswersAnswered()) {
-            // submit
-            console.log('All good');
-        } else {
-            // show error
-            console.log('Not all good');
-            setShowPopup(true);
-        }
-    }, [areRequiredAnswersAnswered]);
+    const onSubmit = useCallback(
+        (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            if (areRequiredAnswersAnswered()) {
+                // submit
+                console.log('All good');
+            } else {
+                // show error
+                console.log('Not all good');
+                setShowPopup(true);
+            }
+        },
+        [areRequiredAnswersAnswered]
+    );
 
     return (
-        <Container className={classes.container}>
-            <Typography style={{ paddingBottom: 20 }} align="center" variant="h6">
-                {strings.formTitle}
-            </Typography>
-            {renderChart()}
-            <EmailField
-                setIsError={(err) => {
-                    setEmailError(err);
-                }}
-                onEmailChange={(email) => {
-                    setEmail(email);
-                }}
-            />
-            <NameField
-                onNameChange={(name) => {
-                    setName(name);
-                }}
-            />
-            <form onSubmit={onSubmit}>
-                {categories.map((label) => {
-                    return <QuestionGroup onAnswerChange={onAnswerChange} key={label} label={label} />;
-                })}
-            </form>
-            <Box>
-                <Button onClick={onSubmitPressed} className={classes.submitButton} variant="contained" color="primary">
-                    {strings.submit}
-                </Button>
-            </Box>
-            {showPopup && (
-                <Popup
-                    onButtonPressed={() => {
-                        setShowPopup(false);
+        <form onSubmit={onSubmit}>
+            <Container className={classes.container}>
+                <Typography style={{ paddingBottom: 20 }} align="center" variant="h6">
+                    {strings.formTitle}
+                </Typography>
+                {renderChart()}
+                <EmailField
+                    setIsError={(err) => {
+                        setEmailError(err);
                     }}
-                    text={strings.ratingRequired}
-                    buttonText={strings.confirm}
+                    onEmailChange={(email) => {
+                        setEmail(email);
+                    }}
                 />
-            )}
-        </Container>
+                <NameField
+                    onNameChange={(name) => {
+                        setName(name);
+                    }}
+                />
+                <form onSubmit={onSubmit}>
+                    {categories.map((label) => {
+                        return <QuestionGroup onAnswerChange={onAnswerChange} key={label} label={label} />;
+                    })}
+                </form>
+                <Box>
+                    <Button type="submit" className={classes.submitButton} variant="contained" color="primary">
+                        {strings.submit}
+                    </Button>
+                </Box>
+                {showPopup && (
+                    <Popup
+                        onButtonPressed={() => {
+                            setShowPopup(false);
+                        }}
+                        text={strings.ratingRequired}
+                        buttonText={strings.confirm}
+                    />
+                )}
+            </Container>
+        </form>
     );
 };
 
