@@ -6,6 +6,10 @@ import { Answers } from '../types';
 import strings from '../strings';
 import { PolarArea } from 'react-chartjs-2';
 import { useLocation } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
+
+
+
 
 type Props = {
     data?: unknown;
@@ -87,6 +91,9 @@ const ResultsScreen: React.FC<Props> = () => {
             >
                 {state && state.answers && renderChart(state.answers)}
             </Box>
+            <Typography variant="h5" align="center">
+            {strings.textPiechart}
+            </Typography>
             {/* Should probably show some missing info section here and link to the main quiz */}
         </Box>
     );
