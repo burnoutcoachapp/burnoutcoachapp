@@ -7,7 +7,7 @@ const strings = {
     propagandaPart2:
         'Please know that only I have access to this information so the more honest and raw you can be, the better conversation we can have should you choose to book a Progression Session with me.',
     formTitle: 'Fill out all the segments, and press Show my results at the end to create your Wheel of Balance',
-    submit: 'Submit',
+    submit: 'Show my results!',
     love: {
         emoji: '❤️',
         title: 'Love & Romance',
@@ -56,6 +56,8 @@ const strings = {
     goingWell: 'What\'s going well?',
     improve: 'What would you like to improve?',
     level10: 'Describe what Level 10 looks like for you?',
+    ratingRequired: 'Please fill out all required questions',
+    confirm: 'Confirm'
 };
 
 export default strings;

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
-import { Header, Introduction, Form } from '../components';
+import { Header, Introduction, Form, Footer, } from '../components';
 import strings from '../strings';
 
 const useStyles = makeStyles({
@@ -23,6 +23,7 @@ const QuestionnaireScreen: React.FC = () => {
             <Header />
             <Introduction />
             <Form />
+            <Footer />
         </Box>
     );
 };
