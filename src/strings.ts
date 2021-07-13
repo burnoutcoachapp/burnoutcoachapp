@@ -1,3 +1,4 @@
+
 const strings = {
     welcome: 'WELCOME TO YOUR 5 MINUTE SELF-ASSESSMENT',
     appTitle: 'Burnout Coach',
@@ -57,7 +58,7 @@ const strings = {
     improve: 'What would you like to improve?',
     level10: 'Describe what Level 10 looks like for you?',
     ratingRequired: 'Please fill out all required questions',
-    confirm: 'Confirm'
-};
+    confirm: 'Confirm',
+}
 
 export default strings;
