@@ -87,6 +87,9 @@ const ResultsScreen: React.FC<Props> = () => {
             >
                 {state && state.answers && renderChart(state.answers)}
             </Box>
+            <Typography style={{ paddingBottom: 20, }} align="center" variant="h5">
+                {strings.pietext}
+            </Typography>
             {/* Should probably show some missing info section here and link to the main quiz */}
         </Box>
     );
