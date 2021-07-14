@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, makeStyles } from '@material-ui/core';
+import { Box, Button, makeStyles, Typography, } from '@material-ui/core';
 import { Header } from '../components';
 import { Answers } from '../types';
 import strings from '../strings';
@@ -91,6 +91,16 @@ const ResultsScreen: React.FC<Props> = () => {
                 }}
             >
                 {state && state.answers && renderChart(state.answers)}
+
+                <Typography style={{ 
+                    paddingBottom: 20,
+                    fontSize: 14,
+                    }}
+
+                    align="center" variant="h5">
+                {strings.pietext}
+                </Typography>
+                
                 <Button
                     onClick={onBookSessionPressed}
                     variant="contained"
@@ -107,9 +117,6 @@ const ResultsScreen: React.FC<Props> = () => {
                     {strings.bookSession}
                 </Button>
             </Box>
-            <Typography style={{ paddingBottom: 20, }} align="center" variant="h5">
-                {strings.pietext}
-            </Typography>
             {/* Should probably show some missing info section here and link to the main quiz */}
         </Box>
     );

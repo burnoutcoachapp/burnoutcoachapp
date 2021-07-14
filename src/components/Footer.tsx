@@ -62,7 +62,6 @@ const Footer: React.FC = () => {
 
     return (
         <Container className={classes.footer}>
-            {`Small Screen: ${bigScreen}`}
             <img src={emilyFooter} className={classes.image} />
             <Container className={bigScreen ? classes.bigButtonContainer : classes.smButtonContainer}>
                 <Button
