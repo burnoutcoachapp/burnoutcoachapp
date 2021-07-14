@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
-import { Header, Introduction, Form, Footer, } from '../components';
+import { Header, Introduction, Form, Footer } from '../components';
 import strings from '../strings';
 
 const useStyles = makeStyles({

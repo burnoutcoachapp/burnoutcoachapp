@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Box, makeStyles, Typography, } from '@material-ui/core';
+import { Box, Button, makeStyles } from '@material-ui/core';
 import { Header } from '../components';
 import { Answers } from '../types';
 import strings from '../strings';
@@ -74,6 +74,10 @@ const ResultsScreen: React.FC<Props> = () => {
         );
     }, []);
 
+    const onBookSessionPressed = () => {
+        window.location.href = 'https://emilyclairecoaching.activehosted.com/f/1';
+    };
+
     return (
         <Box className={classes.container}>
             <Header />
@@ -83,9 +87,25 @@ const ResultsScreen: React.FC<Props> = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     width: '100%',
+                    flexDirection: 'column',
                 }}
             >
                 {state && state.answers && renderChart(state.answers)}
+                <Button
+                    onClick={onBookSessionPressed}
+                    variant="contained"
+                    style={{
+                        maxWidth: '80vw',
+                        backgroundColor: '#f78f28',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        color: '#303030',
+                        fontSize: 12,
+                        marginTop: 25,
+                    }}
+                >
+                    {strings.bookSession}
+                </Button>
             </Box>
             <Typography style={{ paddingBottom: 20, }} align="center" variant="h5">
                 {strings.pietext}

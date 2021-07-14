@@ -60,6 +60,7 @@ const strings = {
     level10: 'Describe what Level 10 looks like for you?',
     ratingRequired: 'Please fill out all required questions',
     confirm: 'Confirm',
-}
+    bookSession: 'BOOK YOUR FREE 45 MIN PROGRESSION SESSION',
+};
 
 export default strings;
